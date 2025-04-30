@@ -19,10 +19,19 @@ stages:
     - bash: echo ArtifactStagingDirectory:$(Build.ArtifactStagingDirectory)
     - bash: echo DefaultWorkingDirectory:$(System.DefaultWorkingDirectory)
     - bash: ls -R $(System.DefaultWorkingDirectory)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '4(System.DefaultWorkingdirectory)'
+        Contents: |
+          **/*.yaml
+          **/*.tf
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - bash: echo ArtifactStagingDirectory:$(Build.ArtifactStagingDirectory)
+    - bash: ls -R $(Build.ArtifactStagingDirectory)
 
-  - job: SecondJob
-    steps:
-    - bash: echo Build / SecondJob
+  # - job: SecondJob
+  #   steps:
+  #   - bash: echo Build / SecondJob
 
 
 # - stage: DevDeploy
