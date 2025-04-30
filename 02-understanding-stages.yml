@@ -21,7 +21,7 @@ stages:
     - bash: ls -R $(System.DefaultWorkingDirectory)
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '4(System.DefaultWorkingdirectory)'
+        SourceFolder: '$(System.DefaultWorkingdirectory)'
         Contents: |
           **/*.yaml
           **/*.tf
