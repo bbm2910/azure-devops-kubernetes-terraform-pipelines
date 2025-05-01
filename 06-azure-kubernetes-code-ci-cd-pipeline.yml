@@ -12,6 +12,11 @@ variables:
   tag: 22
 
 stages:
+- stage: Test
+  jobs:
+  - job: Test
+    steps:
+    - bash: echo 'test'
 - stage: Build
   displayName: Build docker image abd publish files
   jobs:
