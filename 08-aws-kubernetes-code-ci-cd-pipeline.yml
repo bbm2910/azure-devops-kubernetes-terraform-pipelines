@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu latest
 
 variables:
   # tag: '$(Build.BuildId)'
@@ -17,7 +17,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-   
     steps:
     # - task: Docker@2
     #   displayName: Build an image
@@ -30,28 +29,25 @@ stages:
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
         Contents: '**/*.yaml'
-        TargetFolder: '$(Build.ArtifactStagingDirectory'
-
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'manifest'
+        ArtifactName: 'manifests'
         publishLocation: 'Container'
 
 - stage: Deploy
   displayName: Configure Cluster
-  jobs::
+  jobs: 
   - job: Deploy
     displayName: Deploy
     steps: 
-
     - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
         artifactName: 'manifests'
         itemPattern: '**/*.yaml'
         targetPath: '$(System.ArtifactsDirectory)'
-
     - task: KubernetesManifest@1
       inputs:
         action: 'deploy'
@@ -60,4 +56,3 @@ stages:
         namespace: 'default'
         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 1029bobby/currency-exchange-devops:$(tag)
-    
