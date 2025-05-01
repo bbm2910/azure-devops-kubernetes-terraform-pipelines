@@ -8,29 +8,24 @@ resources:
 - repo: self
 
 variables:
-  # tag: '$(Build.BuildId)'
-  tag: 22
+  tag: '$(Build.BuildId)'
+
 
 stages:
-- stage: Test
-  jobs:
-  - job: Test
-    steps:
-    - bash: echo 'test'
 - stage: Build
   displayName: Build docker image abd publish files
   jobs:
   - job: Build
     displayName: Build
     steps:
-    # - task: Docker@2
-    #   displayName: Build an image
-    #   inputs:
-    #     containerRegistry: '1029bobby-docker-hub'
-    #     repository: '1029bobby/currency-exchange-devops'
-    #     command: 'buildAndPush'
-    #     Dockerfile: '**/Dockerfile'
-    #     tags: '$(tag)'
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: '1029bobby-docker-hub'
+        repository: '1029bobby/currency-exchange-devops'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
 
     - task: CopyFiles@2
       inputs:
